@@ -1,0 +1,176 @@
+Clase "Main":
+public class Main {
+    public static BufferedReader entrada =new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws Exception{
+        int propiedadCalc;
+        String figura;
+        double atributo;
+        String opcion;
+        do{
+            System.out.println("Selecciona la propiedad a calcular: Área(1) o Perímetro(2)");
+            propiedadCalc = Integer.parseInt(entrada.readLine());
+            switch(propiedadCalc){
+                case 1:
+                    System.out.println("Seleccionaste calcular el Área");
+                    System.out.println("Seleccionar la figura: Cuadrado, Triangulo o Circulo");
+                    figura = entrada.readLine();
+                    if (figura.equalsIgnoreCase("Cuadrado")){
+                        System.out.println("Ingresa el atributo del cuadrado: La longitud de los lados");
+                        atributo = Double.parseDouble(entrada.readLine());
+                        Square square = new Square(atributo);
+                        System.out.println("El área del cuadrado es de:");
+                        System.out.println(square.getArea());
+                    }else if(figura.equalsIgnoreCase("Triangulo")){
+                        System.out.println("Ingresa el atributo del triangulo: La longitud de los lados");
+                        atributo = Double.parseDouble(entrada.readLine());
+                        Triangle triangle = new Triangle(atributo);
+                        System.out.println("El área del triangulo es de:");
+                        System.out.println(triangle.getArea());
+                    }else if(figura.equalsIgnoreCase("Circulo")){
+                        System.out.println("Ingresa el atributo del circulo: La longitud del radio");
+                        atributo = Double.parseDouble(entrada.readLine());
+                        Circle circle = new Circle(atributo);
+                        System.out.println("El área del circulo es de:");
+                        System.out.println(circle.getArea());
+                    }else{
+                        System.out.println("No ingresaste ninguna figura valida");
+                    }
+                    break;
+                case 2:
+                    System.out.println("Seleccionaste calcular el Perímetro");
+                    System.out.println("Seleccionar la figura: Cuadrado, Triangulo o Circulo");
+                    figura = entrada.readLine();
+                    if (figura.equalsIgnoreCase("Cuadrado")){
+                        System.out.println("Ingresa el atributo del cuadrado: La longitud de los lados");
+                        atributo = Double.parseDouble(entrada.readLine());
+                        Square square = new Square(atributo);
+                        System.out.println("El perímetro del cuadrado es de:");
+                        System.out.println(square.getPerimeter());
+                    }else if(figura.equalsIgnoreCase("Triangulo")){
+                        System.out.println("Ingresa el atributo del triangulo: La longitud de los lados");
+                        atributo = Double.parseDouble(entrada.readLine());
+                        Triangle triangle = new Triangle(atributo);
+                        System.out.println("El perímetro del triangulo es de:");
+                        System.out.println(triangle.getPerimeter());
+                    }else if(figura.equalsIgnoreCase("Circulo")){
+                        System.out.println("Ingresa el atributo del circulo: La longitud del radio");
+                        atributo = Double.parseDouble(entrada.readLine());
+                        Circle circle = new Circle(atributo);
+                        System.out.println("El perímetro del circulo es de:");
+                        System.out.println(circle.getPerimeter());
+                    }else{
+                        System.out.println("No ingresaste ninguna figura valida");
+                    }
+                    break;
+                default:
+                    System.out.println("La opcion ingresada es incorrecta");
+            }
+            System.out.println("¿Quieres realizar otro calculo? (S o N)");
+            opcion = entrada.readLine();
+        }while("s".equals(opcion) || "S".equals(opcion)); 
+    }
+}
+------------------------------------------------------------------------------------------------------
+Clase "Shape":
+public abstract class Shape {
+    public abstract double getArea();
+    public abstract double getPerimeter();
+}
+------------------------------------------------------------------------------------------------------
+Clase "Circle":
+public class Circle extends Shape{
+    public static final double PI = 3.141592;
+
+    protected double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public double getDiameter() {
+        return radius * 2;
+    }
+
+    @Override
+    public double getArea() {
+        return PI * radius * radius;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return PI * getDiameter();
+    }
+}
+------------------------------------------------------------------------------------------------------
+Clase "Triangle":
+public class Triangle extends Shape{
+    private double sideLength;   
+    private double heightLength; 
+
+    public Triangle(double sideLength) {
+        this.sideLength = sideLength;
+        this.heightLength = calculateHeightLength();
+    }
+
+    public void setSideLength(double sideLength) {
+        this.sideLength = sideLength;
+        this.heightLength = calculateHeightLength();
+    }
+
+    public double getSideLength() {
+        return sideLength;
+    }
+
+    public double getHeightLength() {
+        return heightLength;
+    }
+
+    @Override
+    public double getArea() {
+        return (sideLength * heightLength) / 2.0;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return sideLength * 3.0;
+    }
+
+    private double calculateHeightLength() {
+        return (Math.sqrt(3.0) * this.sideLength) / 2.0;
+    }
+}
+------------------------------------------------------------------------------------------------------
+Clase "Square":
+public class Square extends Shape{
+    protected double sideLength;
+
+    public Square(double sideLength) {
+        this.sideLength = sideLength;
+    }
+
+    public void setSideLength(double sideLength) {
+        this.sideLength = sideLength;
+    }
+
+    public double getSideLength() {
+        return sideLength;
+    }
+
+    @Override
+    public double getArea() {
+        return sideLength * sideLength;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return sideLength * 4;
+    }
+}
